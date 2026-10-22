@@ -1,6 +1,6 @@
 {
   "name": "context-diet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "/diet ranks what fills your context before you type (MCP servers, skills, agents, memory files) so you can switch off what you do not use.",
   "license": "MIT",
   "author": {

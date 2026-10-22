@@ -1,6 +1,6 @@
 {
   "name": "smart-compact",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Compaction that keeps what matters and costs less: Haiku writes a structured summary (user instructions, decisions, exact identifiers, open errors, next step) instead of your main model, recent messages are kept whole, and a handoff file is saved.",
   "license": "MIT",
   "author": { "name": "csgenos" },

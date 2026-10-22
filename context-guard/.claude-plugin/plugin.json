@@ -1,6 +1,6 @@
 {
   "name": "context-guard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Keeps waste out of context without losing anything: blocks re-reads of file text already in context (by line range) and trims noisy command output to its errors, head and tail, saving the full output to a file.",
   "license": "MIT",
   "author": { "name": "csgenos" },
