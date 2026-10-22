@@ -1,0 +1,28 @@
+{
+  "name": "efficiency-marketplace",
+  "owner": {
+    "name": "csgenos"
+  },
+  "plugins": [
+    {
+      "name": "session-hud",
+      "source": "./session-hud",
+      "description": "Green session HUD above the prompt"
+    },
+    {
+      "name": "info-card",
+      "source": "./info-card",
+      "description": "Green info card above the prompt: tokens, cost, run time, current task"
+    },
+    {
+      "name": "hud",
+      "source": "./hud",
+      "description": "Session HUD above the prompt: band or card, /hud settings, hide and reopen"
+    },
+    {
+      "name": "haiku-agents",
+      "source": "./haiku-agents",
+      "description": "Read-only Haiku subagents: Explore, scoper, junior"
+    }
+  ]
+}

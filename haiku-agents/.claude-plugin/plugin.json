@@ -1,0 +1,7 @@
+{
+  "name": "haiku-agents",
+  "version": "0.1.0",
+  "description": "Read-only Haiku subagents: Explore (search), scoper (blast radius before edits), junior (bounded tasks with pass/fail checks).",
+  "license": "MIT",
+  "author": { "name": "csgenos" }
+}

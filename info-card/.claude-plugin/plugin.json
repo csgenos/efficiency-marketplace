@@ -1,0 +1,26 @@
+{
+  "name": "info-card",
+  "version": "0.2.0",
+  "description": "Bordered info card above the prompt: cost, tokens, context fill, 5-hour limit, last-run time and current task. Every part is a toggle in the config menu.",
+  "types": "./types/index.d.ts",
+  "license": "MIT",
+  "author": { "name": "csgenos" },
+  "userConfig": {
+    "color": {
+      "type": "string",
+      "title": "Card color",
+      "description": "Border and text color of the card.",
+      "default": "green",
+      "options": ["green", "blue", "magenta", "yellow", "cyan", "red", "white", "gray"]
+    },
+    "showTotal": { "type": "boolean", "title": "Show total cost", "description": "Session cost so far (API-equivalent, not what a subscription charges).", "default": true },
+    "showLastRun": { "type": "boolean", "title": "Show last-run cost", "description": "What the most recent prompt cost.", "default": true },
+    "showContext": { "type": "boolean", "title": "Show context fill", "description": "How full the context window is, so you know when to /compact or /clear.", "default": true },
+    "showLimit": { "type": "boolean", "title": "Show 5-hour limit", "description": "Percent of your 5-hour usage window used (subscriptions only; hidden otherwise).", "default": true },
+    "showTokens": { "type": "boolean", "title": "Show tokens", "description": "Tokens used this session.", "default": true },
+    "showDuration": { "type": "boolean", "title": "Show last-run time", "description": "How long the most recent prompt took.", "default": true },
+    "showTask": { "type": "boolean", "title": "Show current task", "description": "Second line with the task being worked on.", "default": true },
+    "aiTitles": { "type": "boolean", "title": "AI task titles", "description": "Name each task with a small Haiku call (uses a little extra usage per prompt). Off: the task is the start of your prompt.", "default": true },
+    "warnContextPercent": { "type": "number", "title": "Context warning at %", "description": "Turn the context figure red once it reaches this percent. 0 turns the warning off.", "default": 80 }
+  }
+}
