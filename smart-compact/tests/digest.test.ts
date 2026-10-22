@@ -44,3 +44,12 @@ test('an oversized transcript keeps its start and its end', () => {
   assert.ok(s.includes('prompt 0'))
   assert.ok(s.includes('answer 399'))
 })
+
+test('tailStart skips a split that would keep a huge turn whole', () => {
+  const m = (role: 'user' | 'assistant', text: string) => ({ role, text, toolUses: [] }) as any
+  const msgs = [
+    m('user', 'a'), m('assistant', 'b'), m('user', 'c'), m('assistant', 'd'), m('user', 'first'),
+    m('assistant', 'x'.repeat(200_000)), m('user', 'latest'), m('assistant', 'ok'),
+  ]
+  assert.equal(tailStart(msgs, 4), 6)
+})

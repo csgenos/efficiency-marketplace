@@ -62,7 +62,7 @@ export const register: Register = (on, options) => {
   on('command.run', { command: 'diet' }, async ($, e) => {
     await $.ui.open({ id: PANE, title: 'Context diet', focus: true, closeOnEscape: true })
     await update($, diet, () => null)
-    void measure($).then(d => update($, diet, () => d))
+    void measure($).then(d => update($, diet, () => d)).catch(() => { $.ui.toast('context-diet: could not measure context.'); return $.ui.close({ id: PANE }) })
     return { text: 'Context diet opened.' }
   })
 

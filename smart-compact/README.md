@@ -69,6 +69,6 @@ On the `compact-recall` task of the [benchmark](../bench/README.md) (Sonnet, two
 - Early compaction cannot be triggered by a plugin in headless (`-p`) sessions; there, `/compact` as a prompt still uses this plugin.
 - Subagents' own compactions are left to Claude Code.
 
-Unit tests: `node --test smart-compact/tests/` (Node 22.6 or later).
+Unit tests: `node --test smart-compact/tests/*.test.ts` (Node 22.6 or later).
 
 MIT licensed.

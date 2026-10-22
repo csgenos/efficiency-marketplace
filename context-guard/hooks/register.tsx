@@ -35,6 +35,11 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
+  on('session.end', async ($, e, next) => {
+    forget() // /clear ends the session without starting a new one
+    return next(e)
+  })
+
   on('session.compact', async ($, e, next) => {
     const r = await next(e)
     forget() // the earlier file text is gone from context now

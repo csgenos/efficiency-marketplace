@@ -59,7 +59,13 @@ export const register: Register = (on, options) => {
       description: 'Spend ledger: cost per prompt, tokens by tool and prompt-cache health.',
     })
 
-    // Background check, off unless "Idle cache nudge" is switched on. It reads local state only and sends no request.
+    startNudge($)
+    return next(e)
+  })
+
+  // Background check, off unless "Idle cache nudge" is switched on. It reads local state only and sends no request.
+  // /clear ends the session without starting one, so the next prompt restarts it.
+  const startNudge = ($: any) => {
     nudgeTimer?.cancel()
     nudgeTimer = null
     if (options.cacheNudge === true) {
@@ -77,8 +83,7 @@ export const register: Register = (on, options) => {
         }
       })
     }
-    return next(e)
-  })
+  }
 
   on('session.end', async ($, e, next) => {
     nudgeTimer?.cancel()
@@ -98,7 +103,7 @@ export const register: Register = (on, options) => {
   // Every tool result lands in context and is re-read each turn, so its size is what the tool costs.
   on('tool.call', async ($, e, next) => {
     const r = await next(e)
-    if (r.deny === undefined) {
+    if (r.deny === undefined && e.agentId === undefined) { // a subagent's tool output is not in the main context
       const chars = typeof r.text === 'string' ? r.text.length : 0
       await update($, ledger, l => {
         const t = l.tools[e.tool] ?? { calls: 0, chars: 0 }
@@ -109,11 +114,12 @@ export const register: Register = (on, options) => {
   })
 
   on('prompt.submit', async ($, e, next) => {
+    // Keep the first start cost if a prompt is submitted while a run is still going.
+    costAtStartUsd ??= (await $.session.usage()).cost?.usd ?? 0
+    if (nudgeTimer === null) startNudge($)
     if (e.command) {
       return next(e) // slash commands are not tasks, and need no title
     }
-    // Keep the first start cost if a prompt is submitted while a run is still going.
-    costAtStartUsd ??= (await $.session.usage()).cost?.usd ?? 0
     const fallback = e.text.replace(/\s+/g, ' ').trim().slice(0, TASK_MAX_CHARS) || 'Working'
     await update($, card, c => ({ ...c, task: fallback }))
     isRunning = true
@@ -157,7 +163,7 @@ export const register: Register = (on, options) => {
       ? u.input_tokens + u.output_tokens + u.cache_read_input_tokens + u.cache_creation_input_tokens
       : 0
     await update($, card, c => ({ ...c, tokens: c.tokens + stepTokens }))
-    if (u) {
+    if (u && e.agentId === undefined) {
       const now = await $.clock.now()
       await update($, ledger, l => ({
         ...l,

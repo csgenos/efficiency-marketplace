@@ -63,13 +63,20 @@ export function serialize(messages: readonly Msg[], toolChars = 1200, maxChars =
 // Index where the kept tail starts: a user message that is a real prompt, not tool results, so no
 // tool call is split from its result. Prefers keeping at least keepRecent messages; in a short session
 // it keeps fewer (from the latest prompt). Returns -1 when no such point leaves enough to summarize.
-export function tailStart(messages: readonly Msg[], keepRecent: number, minSummarized = 4): number {
+// A kept tail over maxTailChars is skipped for a later split, so one huge turn cannot stay whole and overflow.
+export function tailStart(messages: readonly Msg[], keepRecent: number, minSummarized = 4, maxTailChars = 150_000): number {
   const isPrompt = (m: Msg) => m.role === 'user' && !(m.toolResults && m.toolResults.length) && m.text.trim() !== ''
+  const size = (m: Msg) => JSON.stringify(m).length
   let latest = -1
+  let tailChars = 0
+  let best = -1
   for (let i = messages.length - 1; i >= minSummarized; i--) {
+    tailChars += size(messages[i]!)
+    if (tailChars > maxTailChars && latest >= 0) break
     if (!isPrompt(messages[i]!)) continue
     if (latest < 0) latest = i
+    best = i
     if (i <= messages.length - keepRecent) return i
   }
-  return latest
+  return best
 }

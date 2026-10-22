@@ -71,6 +71,6 @@ See the [benchmark](../bench/README.md). On `lint-fix` (an 82KB linter output wi
 - A file changed outside Claude Code without a new modified time would be missed.
 - Restarting Claude Code empties the read record.
 
-Unit tests: `node --test context-guard/tests/` (Node 22.6 or later).
+Unit tests: `node --test context-guard/tests/*.test.ts` (Node 22.6 or later).
 
 MIT licensed.
