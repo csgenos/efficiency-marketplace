@@ -1,0 +1,6 @@
+{
+  "prompt": "Run `python lint.py`. Fix every problem it reports (edit the source files under src/, not lint.py), then run it again to confirm it reports none.",
+  "setup": "python gen.py",
+  "check": "python lint.py --check",
+  "exercises": "Long successful output with problems scattered through it (context-guard trimming)"
+}

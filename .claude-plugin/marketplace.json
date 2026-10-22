@@ -5,6 +5,16 @@
   },
   "plugins": [
     {
+      "name": "context-guard",
+      "source": "./context-guard",
+      "description": "Keeps waste out of context without losing anything: blocks re-reads of file text already in context (by line range) and trims noisy command output to its errors, head and tail, saving the full output to a file."
+    },
+    {
+      "name": "smart-compact",
+      "source": "./smart-compact",
+      "description": "Compaction that keeps what matters and costs less: Haiku writes a structured summary (user instructions, decisions, exact identifiers, open errors, next step) instead of your main model, recent messages are kept whole, and a handoff file is saved."
+    },
+    {
       "name": "info-card",
       "source": "./info-card",
       "description": "A live spend card above the prompt (cost, tokens, context, 5-hour limit, cache health, task) plus /ledger for spend by tool and prompt-cache detail."
@@ -18,11 +28,6 @@
       "name": "context-diet",
       "source": "./context-diet",
       "description": "/diet ranks what fills your context before you type (MCP servers, skills, agents, memory files) so you can switch off what you do not use."
-    },
-    {
-      "name": "reread-guard",
-      "source": "./reread-guard",
-      "description": "Refuses to re-read an unchanged file that is already in context, so the same text is not added and re-billed every turn."
     },
     {
       "name": "lean-skills",

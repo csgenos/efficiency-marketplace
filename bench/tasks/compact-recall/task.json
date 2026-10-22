@@ -1,0 +1,10 @@
+{
+  "turns": [
+    "Standing rules for this whole session: indent with tabs, never spaces; never edit README.md; every new function needs a one-line docstring. Read pricing.py and fix the bug in apply_discount (a 10% discount on 200 must give 180).",
+    "Now add a function clamp_price(p) to pricing.py that limits p to the range 0-10000. Follow my standing rules.",
+    "/compact",
+    "Without using tools, answer in this exact form: RULES: <my standing rules, comma-separated> | FIXED: <function you fixed> | ADDED: <function you added>"
+  ],
+  "check": "python check.py",
+  "exercises": "Compaction keeping user instructions and identifiers (smart-compact)"
+}

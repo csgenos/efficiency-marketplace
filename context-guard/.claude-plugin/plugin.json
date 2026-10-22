@@ -1,0 +1,17 @@
+{
+  "name": "context-guard",
+  "version": "0.1.0",
+  "description": "Keeps waste out of context without losing anything: blocks re-reads of file text already in context (by line range) and trims noisy command output to its errors, head and tail, saving the full output to a file.",
+  "license": "MIT",
+  "author": { "name": "csgenos" },
+  "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/context-guard",
+  "repository": "https://github.com/csgenos/efficiency-marketplace",
+  "keywords": ["tokens", "context", "efficiency", "logs", "read", "bash"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "blockRereads": { "type": "boolean", "title": "Block repeat reads", "description": "Refuse a Read whose line range is already in context from an earlier read of the unchanged file.", "default": true },
+    "minBytes": { "type": "number", "title": "Ignore files smaller than (bytes)", "description": "Files below this size are never blocked; a refusal costs more than re-reading them.", "default": 2000 },
+    "trimOutput": { "type": "boolean", "title": "Trim long command output", "description": "Cut long Bash output down to errors, warnings, the head and the tail. The full output is saved under .claude/context-guard/ and its path is given to Claude.", "default": true },
+    "maxChars": { "type": "number", "title": "Trim output longer than (characters)", "description": "Output at or under this size is never touched.", "default": 6000 }
+  }
+}

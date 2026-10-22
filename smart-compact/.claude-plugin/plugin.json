@@ -1,0 +1,17 @@
+{
+  "name": "smart-compact",
+  "version": "0.1.0",
+  "description": "Compaction that keeps what matters and costs less: Haiku writes a structured summary (user instructions, decisions, exact identifiers, open errors, next step) instead of your main model, recent messages are kept whole, and a handoff file is saved.",
+  "license": "MIT",
+  "author": { "name": "csgenos" },
+  "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/smart-compact",
+  "repository": "https://github.com/csgenos/efficiency-marketplace",
+  "keywords": ["compact", "context", "summary", "handoff", "tokens", "efficiency"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "mode": { "type": "string", "title": "Mode", "description": "haiku: Haiku writes a structured summary and recent messages stay whole (falls back to the built-in summary on any failure). steer: the built-in summarizer runs, told to use the same structure. off: built-in compaction untouched.", "default": "haiku", "options": ["haiku", "steer", "off"] },
+    "keepRecentMessages": { "type": "number", "title": "Recent messages kept whole", "description": "At least this many of the latest messages stay word for word after compaction (haiku mode).", "default": 8 },
+    "writeHandoff": { "type": "boolean", "title": "Save summary to .claude/handoff.md", "description": "Also write the summary to a file you can start a fresh session from.", "default": true },
+    "compactAtPercent": { "type": "number", "title": "Compact early at % of context", "description": "Compact on its own once context passes this percent, so later turns are cheaper. 0 leaves it to Claude Code's own threshold.", "default": 0 }
+  }
+}

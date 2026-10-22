@@ -1,0 +1,5 @@
+{
+  "prompt": "Run `python build.py`. Somewhere in its output there is a warning. Fix its cause so the build runs without warnings. Do not edit build.py.",
+  "check": "python check.py",
+  "exercises": "Long command output (context-guard trimming)"
+}

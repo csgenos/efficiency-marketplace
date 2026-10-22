@@ -1,0 +1,6 @@
+{
+  "prompt": "Running `python test_inventory.py` fails. Find the bug in inventory.py and fix it so the test passes. Do not edit the test.",
+  "setup": "python gen.py",
+  "check": "python test_inventory.py",
+  "exercises": "Reading a large file in parts (context-guard re-read blocking, lean-search)"
+}

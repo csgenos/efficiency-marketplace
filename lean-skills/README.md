@@ -23,8 +23,9 @@ Each skill's description is the only part that sits in context on every turn, an
 ## Works best with
 
 - **`haiku-agents`**, which provides `finder` and `scoper`. Without it, `lean-search` falls back to the built-in `Explore` agent or searching directly, and `scope-first` does the scoping itself with Grep.
-- **`reread-guard`**, which enforces the "never read twice" rule that `lean-search` asks for.
+- **`context-guard`**, which enforces the "never read twice" rule that `lean-search` asks for.
 - **`info-card`**, whose context warning is a good moment to run `handoff`.
+- **`smart-compact`**, which writes the same handoff structure automatically at every compaction.
 
 ## Settings
 
@@ -39,7 +40,7 @@ None. A skill is plain text. To change what a skill does, edit its `SKILL.md` in
 
 ## Limits
 
-- Skills are guidance, not enforcement. For a hard guarantee, use a hook such as `reread-guard`.
+- Skills are guidance, not enforcement. For a hard guarantee, use a hook such as `context-guard`.
 - `handoff` cannot clear the session for you; you run `/clear` yourself. It writes `.claude/handoff.md` into the project, so add it to `.gitignore` if you do not want it tracked.
 - I have not measured how much these save. Check `/ledger` over a session or two.
 

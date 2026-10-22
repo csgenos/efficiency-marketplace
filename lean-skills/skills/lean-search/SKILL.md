@@ -14,7 +14,8 @@ Everything you read stays in context and is re-read on every later turn, so read
 3. **Read ranges, not files.** Once Grep gives a line number, Read with `offset` and `limit` around it. Read a whole file only when you must edit most of it or understand all of it.
 4. **Never read twice.** If a file is already in this conversation and has not been edited since, use the text you have. Do not re-read it, and do not `cat` it in a shell command either.
 5. **Trim command output.** Pipe long shell output through `head`, `tail` or `grep`. For logs and test runs, show failures and the last lines, not everything.
-6. **Stop when answered.** Once you have the file and line you need, stop exploring.
+6. **Large files and logs.** For a file too big to read whole, use the `headroom` skill if it is installed (it outlines the file first); otherwise Grep for line numbers and read ranges.
+7. **Stop when answered.** Once you have the file and line you need, stop exploring.
 
 ## Do not trade away correctness
 

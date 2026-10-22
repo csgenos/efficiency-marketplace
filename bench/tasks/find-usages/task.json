@@ -1,0 +1,6 @@
+{
+  "prompt": "List every Python file in this project that calls the function apply_discount (not files that only define or mention it in a comment). Reply with only the file paths relative to the project root, one per line, nothing else.",
+  "setup": "python gen.py",
+  "check": "python check.py",
+  "exercises": "Broad search (haiku-agents finder, lean-search)"
+}
