@@ -1,10 +1,16 @@
 # context-diet
 
-Everything in your context window before you type is re-read on **every** turn: the system prompt, MCP tool listings, skill and agent descriptions, memory files. Install a lot of plugins and that standing load gets big.
+**See what fills your context before you type, ranked by cost.**
 
-Type **`/diet`** to see it ranked: totals by category, then the biggest MCP servers, skills, agents and memory files.
+`/diet` opens a pane with the standing context: totals by category, then the biggest MCP servers, skills, agents and memory files.
 
-Then cut what you do not use: `/plugin disable` a plugin for the project, `/mcp` to switch off a server, or trim a memory file. Disabled items stop costing tokens on every turn.
+## How it saves tokens
+
+System prompt, tool and skill listings, agent descriptions and memory files are sent on every turn. Install many plugins and that load grows. Ranking it shows what to switch off: `/plugin disable` a plugin you do not use in this project, `/mcp` to switch off a server, or trim a memory file. Disabled items stop costing tokens on every turn.
+
+## Using it
+
+Type `/diet`. **Re-measure** refreshes the figures after you change something.
 
 ## Settings
 
@@ -13,9 +19,12 @@ Then cut what you do not use: `/plugin disable` a plugin for the project, `/mcp`
 ## Install
 
 ```
-/plugin install context-diet --marketplace csgenos/efficiency-marketplace
+/plugin marketplace add csgenos/efficiency-marketplace
+/plugin install context-diet@efficiency-marketplace
 ```
 
 ## Limits
 
-Read-only: it reports and suggests, it does not disable anything for you. Token figures are the engine's estimates. Tools loaded on demand are not counted until they are used.
+Read-only: it reports and suggests, and disables nothing. Figures are the engine's estimates. Tools loaded on demand are not counted until used.
+
+MIT licensed.

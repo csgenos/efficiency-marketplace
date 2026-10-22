@@ -75,11 +75,15 @@ export const register: Register = (on, options) => {
   })
 
   on('prompt.submit', async ($, e, next) => {
+    if (e.command) {
+      return next(e) // slash commands are not tasks, and need no title
+    }
     // Keep the first start cost if a prompt is submitted while a run is still going.
     costAtStartUsd ??= (await $.session.usage()).cost?.usd ?? 0
     const fallback = e.text.replace(/\s+/g, ' ').trim().slice(0, TASK_MAX_CHARS) || 'Working'
     await update($, card, c => ({ ...c, task: fallback }))
-    if (!options.aiTitles) {
+    // A short prompt is already its own title; skip the call.
+    if (!options.aiTitles || e.text.trim().split(/\s+/).length <= 4) {
       return next(e)
     }
 

@@ -7,32 +7,32 @@
     {
       "name": "session-hud",
       "source": "./session-hud",
-      "description": "Green session HUD above the prompt"
+      "description": "The simplest status band: tokens, cost, context, task and model in one green line above the prompt."
     },
     {
       "name": "info-card",
       "source": "./info-card",
-      "description": "Green info card above the prompt: tokens, cost, run time, current task"
+      "description": "A live spend card above the prompt (cost, tokens, context, 5-hour limit, cache health, task) plus /ledger for spend by tool and prompt-cache detail."
     },
     {
       "name": "hud",
       "source": "./hud",
-      "description": "Session HUD above the prompt: band or card, /hud settings, hide and reopen"
+      "description": "A closable status band or card above the prompt showing context, cost, tokens, model and task, with a /hud settings pane."
     },
     {
       "name": "haiku-agents",
       "source": "./haiku-agents",
-      "description": "Read-only Haiku subagents: Explore, scoper, junior"
+      "description": "Three read-only Haiku subagents (finder, scoper, junior) that keep searches and checks out of your main context at a fraction of the cost."
     },
     {
       "name": "context-diet",
       "source": "./context-diet",
-      "description": "/diet: what fills your context before you type, ranked by token cost"
+      "description": "/diet ranks what fills your context before you type (MCP servers, skills, agents, memory files) so you can switch off what you do not use."
     },
     {
       "name": "reread-guard",
       "source": "./reread-guard",
-      "description": "Blocks re-reading an unchanged file that is already in context"
+      "description": "Refuses to re-read an unchanged file that is already in context, so the same text is not added and re-billed every turn."
     }
   ],
   "description": "Claude Code plugins for tracking usage and spending less of it: status displays, and cheap Haiku subagents."

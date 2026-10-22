@@ -1,7 +1,7 @@
 {
   "name": "session-hud",
   "version": "0.1.0",
-  "description": "Green band above the prompt: tokens, API-equivalent cost, context window, task, connection and model.",
+  "description": "The simplest status band: tokens, cost, context, task and model in one green line above the prompt.",
   "license": "MIT",
   "author": {
     "name": "csgenos"

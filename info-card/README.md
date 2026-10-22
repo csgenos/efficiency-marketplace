@@ -1,26 +1,32 @@
 # info-card
 
-A bordered card above the prompt: total and last-run cost, 5-hour limit, tokens, last-run time, context fill and the current task. No setup needed.
+**A live spend card above your prompt, with a spend ledger and cache health one command away.**
 
-Costs are API-equivalent figures, not what a subscription charges.
+A bordered card above the prompt showing total and last-run cost, 5-hour limit, tokens, last-run time, context fill, prompt-cache health and the current task. `/ledger` opens a submenu with the detail.
 
-## Spend ledger (`/ledger`)
+## How it saves tokens
 
-Type `/ledger` for a submenu with two sections:
+You cannot spend less of what you cannot see. The card keeps cost and context in view, turns the context figure red before the window fills, and flags a cold prompt cache (a cold cache re-bills the whole context at the write price). `/ledger` ranks tool results by estimated size, so you know which ones to trim.
 
-- **Cache health:** how much of the last response, and of the whole session, was read from the prompt cache, how many minutes the cache has left, and a warning once you have been idle past its lifetime. A cold cache re-bills the whole context at the write price on your next prompt.
-- **Tool results in context:** estimated tokens by tool, biggest first. Every result stays in context and is re-read each turn, so the top rows are where trimming pays most.
+## Using it
 
-`/ledger reset` clears it. The card also shows a short `Cache 92%` (or `Cache cold`) item; switch it off in settings. Set the cache lifetime to 60 if your plan uses the 1-hour cache.
+- Install it and the card appears. No setup.
+- `/ledger`: **Cache health** (hit rate of the last response and of the session, minutes left, a warning once idle past the cache lifetime) and **Tool results in context** (estimated tokens by tool, biggest first). `/ledger reset` clears it.
+- Task titles: each prompt gets a 2-4 word label from one small Haiku call. Slash commands and prompts of four words or fewer skip the call.
 
 ## Settings
 
-Open the config menu (`/config`) and find **info-card**. Every part is a row you can toggle, plus a color picker, AI task titles (off by default: one small Haiku call per prompt) and the context-warning percent. A change reloads the card immediately; nothing to edit by hand.
-
-On a narrow terminal the end of the line is cut off, so the most important items come first.
+`/config` → **info-card**: color, a toggle for each item, AI task titles (on by default), the context warning percent and the cache lifetime (5 minutes by default; use 60 if your plan uses the 1-hour cache).
 
 ## Install
 
 ```
-/plugin install info-card --marketplace csgenos/efficiency-marketplace
+/plugin marketplace add csgenos/efficiency-marketplace
+/plugin install info-card@efficiency-marketplace
 ```
+
+## Limits
+
+Costs are API-equivalent estimates, not what a subscription charges. Tool-result sizes are estimated at about four characters per token. AI titles cost one small Haiku call per qualifying prompt; turn them off in settings if you would rather not.
+
+MIT licensed.

@@ -1,26 +1,30 @@
 # reread-guard
 
-Claude sometimes reads the same file twice in one session. The second copy adds the same text to the conversation, and every copy is re-read (and re-billed) on every later turn.
+**Stops Claude re-reading a file that is already in context and unchanged.**
 
-`reread-guard` refuses a `Read` when **all** of these are true:
+Refuses a `Read` when the same file and range was already read in this conversation, the file's modified time is unchanged, and the file is at least 2,000 bytes. Images, PDFs and notebooks are never blocked.
 
-- the same file and the same range (`offset`/`limit`) was already read in this conversation,
-- the file's modified time has not changed since (so any edit, by Claude or you, allows the read again),
-- the file is at least 2,000 bytes (tiny files cost less than the refusal does),
-- no `/compact` or `/clear` has happened since (the old text is gone then).
+## How it saves tokens
 
-Images, PDFs and notebooks are never blocked. Subagents each have their own memory, since they have their own context.
+A second read adds a second copy of the same text, and every copy is re-read (and re-billed) on every later turn. Refusing the repeat saves the copy and everything it would cost afterwards. Any edit, by Claude or by you, changes the modified time and allows the read again. `/compact` and `/clear` reset the memory, because the old text is gone then. Subagents each have their own memory.
+
+## Using it
+
+Nothing to do: Claude is told the file is unchanged and to use the text it already has, or to pass `offset` and `limit` for another part.
 
 ## Settings
 
-Open `/config` and find **reread-guard**: switch blocking off, or change the minimum file size.
+`/config` → **reread-guard**: switch blocking off (reads then go through) and set the minimum file size.
 
 ## Install
 
 ```
-/plugin install reread-guard --marketplace csgenos/efficiency-marketplace
+/plugin marketplace add csgenos/efficiency-marketplace
+/plugin install reread-guard@efficiency-marketplace
 ```
 
 ## Limits
 
-It tracks reads made through the `Read` tool. A file read through `cat` in a shell command is not seen. The refusal costs a small turn; it saves more than it costs only for files above the size limit.
+It sees reads made through the `Read` tool, not a file printed by `cat` in a shell command. A refusal costs a small turn, which is why small files are exempt.
+
+MIT licensed.

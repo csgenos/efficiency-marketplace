@@ -1,10 +1,11 @@
 import type { Register } from 'claude-code'
 
+import type { Seen } from '../types'
+
 // Reading a file again adds a second copy to context, and every copy is re-read on every later turn.
 // A repeat is refused only when the same range of the same file is still in context and the file's
 // modified time has not moved. Compaction and /clear empty the memory, because the text is gone then.
-import type { Seen } from '../types'
-
+const MAX_REMEMBERED = 500 // oldest entries go first, so a very long session cannot grow the map without bound
 const TEXT_ONLY = /\.(png|jpe?g|gif|webp|pdf|ipynb)$/i
 
 export const register: Register = (on, options) => {
@@ -52,7 +53,11 @@ export const register: Register = (on, options) => {
 
     const r = await next(e)
     if (r.deny === undefined && !r.isError) {
+      seen.delete(key)
       seen.set(key, { mtimeMs, offset, limit })
+      if (seen.size > MAX_REMEMBERED) {
+        seen.delete(seen.keys().next().value as string)
+      }
     }
     return r
   })

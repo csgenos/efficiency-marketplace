@@ -1,12 +1,31 @@
 # session-hud
-A green band above the prompt showing session tokens, the cost at API prices, context window use, the current task, connection status and the active model. It needs no setup: install it and it appears in every session.
 
-## Customizing
+**The simplest status band: one green line above your prompt.**
 
-Open `hooks/register.tsx` and edit the **Easy settings** block at the top: change the color (green, blue, magenta, yellow, cyan, red, white, gray) and switch parts on or off. On a narrow terminal the end of the line is cut off, so the most important items come first. Restart Claude Code after editing.
+Session tokens, cost at API prices, context window use, the current task, connection status and the active model, in one line.
+
+## How it saves tokens
+
+It makes cost and context visible at a glance, so you notice a bloated session early. It does not change what Claude does.
+
+## Using it
+
+- Install it and the band appears. No setup.
+- To change the color or switch parts off, edit the **Easy settings** block at the top of `hooks/register.tsx`, then restart Claude Code.
+
+## Settings
+
+None in the menu; the file edit above is the only setting. Use `hud` or `info-card` if you want a settings menu.
 
 ## Install
 
 ```
-/plugin install session-hud --marketplace csgenos/efficiency-marketplace
+/plugin marketplace add csgenos/efficiency-marketplace
+/plugin install session-hud@efficiency-marketplace
 ```
+
+## Limits
+
+Costs are API-equivalent estimates. The task shown is the start of your prompt, with no AI title. Overlaps with `hud` and `info-card`; install one display, not all three.
+
+MIT licensed.

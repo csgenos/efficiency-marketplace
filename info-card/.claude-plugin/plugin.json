@@ -1,7 +1,7 @@
 {
   "name": "info-card",
   "version": "0.3.0",
-  "description": "Bordered info card above the prompt: cost, tokens, context fill, 5-hour limit, last-run time and current task. Every part is a toggle in the config menu.",
+  "description": "A live spend card above the prompt (cost, tokens, context, 5-hour limit, cache health, task) plus /ledger for spend by tool and prompt-cache detail.",
   "types": "./types/index.d.ts",
   "license": "MIT",
   "author": {

@@ -1,15 +1,33 @@
 {
   "name": "context-diet",
   "version": "0.1.0",
-  "description": "Shows what sits in your context window before you type anything (MCP servers, skills, agents, memory files), ranked by token cost, so you can switch off what you do not use.",
+  "description": "/diet ranks what fills your context before you type (MCP servers, skills, agents, memory files) so you can switch off what you do not use.",
   "license": "MIT",
-  "author": { "name": "csgenos" },
+  "author": {
+    "name": "csgenos"
+  },
   "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/context-diet",
   "repository": "https://github.com/csgenos/efficiency-marketplace",
-  "keywords": ["tokens", "context", "mcp", "skills", "efficiency"],
+  "keywords": [
+    "tokens",
+    "context",
+    "mcp",
+    "skills",
+    "efficiency"
+  ],
   "types": "./types/index.d.ts",
   "userConfig": {
-    "topN": { "type": "number", "title": "Rows per list", "description": "How many of the biggest MCP servers, skills, agents and memory files to list.", "default": 6 },
-    "warnPercent": { "type": "number", "title": "Warn above (% of window)", "description": "Mark the standing total in red when it passes this share of the context window. 0 turns the warning off.", "default": 10 }
+    "topN": {
+      "type": "number",
+      "title": "Rows per list",
+      "description": "How many of the biggest MCP servers, skills, agents and memory files to list.",
+      "default": 6
+    },
+    "warnPercent": {
+      "type": "number",
+      "title": "Warn above (% of window)",
+      "description": "Mark the standing total in red when it passes this share of the context window. 0 turns the warning off.",
+      "default": 10
+    }
   }
 }
