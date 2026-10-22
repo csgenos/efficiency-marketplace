@@ -10,6 +10,10 @@ Status displays for cost, tokens and context, plus cheap read-only Haiku subagen
 
 </div>
 
+## Why this exists
+
+Claude Code usage is mostly **context**: everything in the conversation is re-read on every turn, so one oversized tool result, one repeated file read or one forgotten MCP server is paid for again and again. These plugins attack that without making answers worse: they make the cost visible, keep duplicate text out of context, and move bulk reading to a cheaper model. None of them changes how Claude writes code or answers.
+
 ## Quick start
 
 ```
@@ -23,7 +27,7 @@ Then run `/reload-plugins` (or restart Claude Code).
 
 | Plugin | What you get | Settings |
 |---|---|---|
-| 📊 **[info-card](info-card)** | Bordered card above the prompt: cost, 5-hour limit, tokens, run time, context fill, cache health, current task. `/ledger` shows spend by tool and cache details | `/config` → info-card |
+| 📊 **[info-card](info-card)** | Live card above the prompt: cost, 5-hour limit, tokens, context fill, cache health, current task. `/ledger` adds cost per prompt (with character counts), spend by tool and cache detail. Optional idle-cache nudge, off until you switch it on | `/config` → info-card |
 | 🥗 **[context-diet](context-diet)** | `/diet` ranks what fills your context before you type: MCP servers, skills, agents, memory files | `/config` → context-diet |
 | 🛡️ **[reread-guard](reread-guard)** | Refuses to re-read an unchanged file that is already in context | `/config` → reread-guard |
 | 🪶 **[haiku-agents](haiku-agents)** | Three read-only Haiku subagents: `finder`, `scoper`, `junior` | Edit the agent files |

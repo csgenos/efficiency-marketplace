@@ -2,19 +2,39 @@
 
 **See what fills your context before you type, ranked by cost.**
 
-`/diet` opens a pane with the standing context: totals by category, then the biggest MCP servers, skills, agents and memory files.
+## Why it exists
 
-## How it saves tokens
+Before you send a word, every turn already carries a fixed load: the system prompt, the list of every tool, skill and agent, and your memory files. That load is re-read on every single turn. Install a lot of plugins and MCP servers and it quietly grows into thousands of tokens you pay for each time, whether or not you use them. Nothing shows you this. `context-diet` does.
 
-System prompt, tool and skill listings, agent descriptions and memory files are sent on every turn. Install many plugins and that load grows. Ranking it shows what to switch off: `/plugin disable` a plugin you do not use in this project, `/mcp` to switch off a server, or trim a memory file. Disabled items stop costing tokens on every turn.
+## What you get
 
-## Using it
+Type **`/diet`** to open a pane with:
 
-Type `/diet`. **Re-measure** refreshes the figures after you change something.
+- **Standing context:** the total in tokens and as a share of the window, turning red above the warning percent.
+- **By category:** system prompt, system tools, memory files, skills and so on, biggest first.
+- **MCP servers:** each server's loaded tools added up, with the tool count.
+- **Skills, Agents, Memory files:** the biggest entries of each.
+
+The *Re-measure* button refreshes the figures after you change something.
+
+## What to do with it
+
+It reports and suggests; it never changes anything.
+
+- Disable a plugin you do not use in this project: `/plugin disable <name>`.
+- Switch off an MCP server: `/mcp`.
+- Trim or split a large memory file.
+
+Disabled items stop costing tokens on every turn. Run `/reload-plugins` afterwards, and `/diet` again to see the difference.
 
 ## Settings
 
-`/config` → **context-diet**: how many rows each list shows, and the percentage of the window at which the total turns red.
+Open `/config` and find **context-diet**.
+
+| Setting | Default | What it does |
+|---|---|---|
+| Rows per list | 6 | How many of the biggest entries each list shows |
+| Warn above (% of window) | 10 | Marks the standing total red above this share. `0` turns the warning off |
 
 ## Install
 
@@ -25,6 +45,8 @@ Type `/diet`. **Re-measure** refreshes the figures after you change something.
 
 ## Limits
 
-Read-only: it reports and suggests, and disables nothing. Figures are the engine's estimates. Tools loaded on demand are not counted until used.
+- Figures are the engine's estimates, not exact bills.
+- Tools that load on demand are not counted until they are used.
+- It cannot tell which items you actually use, only what they cost. That decision is yours.
 
 MIT licensed.
