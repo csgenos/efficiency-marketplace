@@ -23,6 +23,16 @@
       "name": "haiku-agents",
       "source": "./haiku-agents",
       "description": "Read-only Haiku subagents: Explore, scoper, junior"
+    },
+    {
+      "name": "context-diet",
+      "source": "./context-diet",
+      "description": "/diet: what fills your context before you type, ranked by token cost"
+    },
+    {
+      "name": "reread-guard",
+      "source": "./reread-guard",
+      "description": "Blocks re-reading an unchanged file that is already in context"
     }
   ],
   "description": "Claude Code plugins for tracking usage and spending less of it: status displays, and cheap Haiku subagents."

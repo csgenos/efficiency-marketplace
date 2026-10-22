@@ -6,7 +6,7 @@
 
 Status displays for cost, tokens and context, plus cheap read-only Haiku subagents.
 
-![plugins](https://img.shields.io/badge/plugins-4-blue) ![license](https://img.shields.io/badge/license-MIT-green) ![claude code](https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-orange)
+![plugins](https://img.shields.io/badge/plugins-6-blue) ![license](https://img.shields.io/badge/license-MIT-green) ![claude code](https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-orange)
 
 </div>
 
@@ -23,9 +23,11 @@ Then run `/reload-plugins` (or restart Claude Code).
 
 | Plugin | What you get | Settings |
 |---|---|---|
-| 📊 **[info-card](info-card)** | Bordered card above the prompt: total and last-run cost, 5-hour limit, tokens, run time, context fill, current task | `/config` → info-card |
+| 📊 **[info-card](info-card)** | Bordered card above the prompt: cost, 5-hour limit, tokens, run time, context fill, cache health, current task. `/ledger` shows spend by tool and cache details | `/config` → info-card |
 | 🎛️ **[hud](hud)** | Band or card above the prompt, closable and reopenable | `/hud` |
 | 🟩 **[session-hud](session-hud)** | Minimal green band: tokens, cost, context, task, model | Edit `hooks/register.tsx` |
+| 🥗 **[context-diet](context-diet)** | `/diet` ranks what fills your context before you type: MCP servers, skills, agents, memory files | `/config` → context-diet |
+| 🛡️ **[reread-guard](reread-guard)** | Refuses to re-read an unchanged file that is already in context | `/config` → reread-guard |
 | 🪶 **[haiku-agents](haiku-agents)** | Three read-only Haiku subagents: `finder`, `scoper`, `junior` | Edit the agent files |
 
 Install any of them the same way:

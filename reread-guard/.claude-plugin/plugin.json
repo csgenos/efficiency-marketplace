@@ -1,0 +1,15 @@
+{
+  "name": "reread-guard",
+  "version": "0.1.0",
+  "description": "Stops Claude re-reading a file that is already in context and unchanged, so the same text is not added (and re-billed every turn) twice.",
+  "license": "MIT",
+  "author": { "name": "csgenos" },
+  "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/reread-guard",
+  "repository": "https://github.com/csgenos/efficiency-marketplace",
+  "keywords": ["tokens", "context", "efficiency", "read"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "enabled": { "type": "boolean", "title": "Block repeat reads", "description": "Refuse a Read of an unchanged file whose exact range is already in context. Off: reads go through and are only counted.", "default": true },
+    "minChars": { "type": "number", "title": "Ignore files smaller than (bytes)", "description": "Re-reading a tiny file costs less than the refusal message does.", "default": 2000 }
+  }
+}
