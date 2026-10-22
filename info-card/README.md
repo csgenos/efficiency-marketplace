@@ -11,7 +11,8 @@ You cannot spend less of what you cannot see. The card keeps cost and context in
 ## Using it
 
 - Install it and the card appears. No setup.
-- `/ledger`: **Cache health** (hit rate of the last response and of the session, minutes left, a warning once idle past the cache lifetime) and **Tool results in context** (estimated tokens by tool, biggest first). `/ledger reset` clears it.
+- `/ledger` has three sections. **Cost per prompt** lists your last 20 prompts with cost, length in characters and task title (the AI title when AI task titles are on, otherwise the start of the prompt); the cost fills in when the response finishes. **Cache health** (hit rate of the last response and of the session, minutes left, a warning once idle past the cache lifetime) and **Tool results in context** (estimated tokens by tool, biggest first). `/ledger reset` clears it.
+- **Idle cache nudge (off by default):** switch it on in `/config`. A background check, with no requests sent, shows a notice shortly before the cache expires, so a quick prompt can keep it warm. It shows once per response.
 - Task titles: each prompt gets a 2-4 word label from one small Haiku call. Slash commands and prompts of four words or fewer skip the call.
 
 ## Settings

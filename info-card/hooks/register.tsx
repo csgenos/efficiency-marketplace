@@ -14,7 +14,7 @@ const card = atom(
 )
 
 const PANE = 'info-card-ledger'
-const EMPTY_LEDGER: Ledger = { tools: {}, cache: { read: 0, created: 0, fresh: 0, lastAt: null, lastHitPercent: null } }
+const EMPTY_LEDGER: Ledger = { prompts: [], tools: {}, cache: { read: 0, created: 0, fresh: 0, lastAt: null, lastHitPercent: null } }
 
 const ledger = atom({ plugin: 'info-card', key: 'ledger' } as const, EMPTY_LEDGER)
 
@@ -23,6 +23,9 @@ const estimateTokens = (chars: number) => Math.ceil(chars / 4)
 
 const hitPercent = (read: number, created: number, fresh: number) =>
   read + created + fresh === 0 ? null : Math.round((read / (read + created + fresh)) * 100)
+
+const MAX_PROMPTS = 20
+const NUDGE_CHECK_MS = 15000
 
 const formatTokens = (n: number) =>
   n >= 1e6 ? `${(n / 1e6).toFixed(2)}M` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}k` : `${n}`
@@ -42,13 +45,44 @@ export const register: Register = (on, options) => {
   const color = String(options.color ?? 'green')
   const warnAt = Number(options.warnContextPercent ?? 80)
   const ttlMinutes = Number(options.cacheTtlMinutes ?? 5)
+  const nudgeLeadMs = Number(options.nudgeLeadSeconds ?? 60) * 1000
   let costAtStartUsd: number | null = null
+  let nextPromptId = 1
+  let currentPromptId: number | null = null
+  let isRunning = false
+  let nudgeTimer: { cancel: () => void } | null = null
+  let nudgedFor: number | null = null // the response time a nudge was already shown for
 
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'ledger',
-      description: 'Spend ledger: tokens by tool and prompt-cache health.',
+      description: 'Spend ledger: cost per prompt, tokens by tool and prompt-cache health.',
     })
+
+    // Background check, off unless "Idle cache nudge" is switched on. It reads local state only and sends no request.
+    nudgeTimer?.cancel()
+    nudgeTimer = null
+    if (options.cacheNudge === true) {
+      nudgeTimer = $.clock.every(NUDGE_CHECK_MS, async () => {
+        const { cache } = await read($, ledger)
+        if (isRunning || cache.lastAt === null || nudgedFor === cache.lastAt) {
+          return
+        }
+        const leftMs = ttlMinutes * 60000 - ((await $.clock.now()) - cache.lastAt)
+        if (leftMs > 0 && leftMs <= nudgeLeadMs) {
+          nudgedFor = cache.lastAt
+          $.ui.toast(`Prompt cache expires in about ${Math.ceil(leftMs / 1000)}s. A prompt now keeps it warm; after that the next one re-bills the whole context.`, {
+            timeoutMs: 8000,
+          })
+        }
+      })
+    }
+    return next(e)
+  })
+
+  on('session.end', async ($, e, next) => {
+    nudgeTimer?.cancel()
+    nudgeTimer = null
     return next(e)
   })
 
@@ -82,6 +116,13 @@ export const register: Register = (on, options) => {
     costAtStartUsd ??= (await $.session.usage()).cost?.usd ?? 0
     const fallback = e.text.replace(/\s+/g, ' ').trim().slice(0, TASK_MAX_CHARS) || 'Working'
     await update($, card, c => ({ ...c, task: fallback }))
+    isRunning = true
+    const promptId = nextPromptId++
+    currentPromptId = promptId
+    await update($, ledger, l => ({
+      ...l,
+      prompts: [...l.prompts, { id: promptId, title: fallback, chars: e.text.length, costUsd: null }].slice(-MAX_PROMPTS),
+    }))
     // A short prompt is already its own title; skip the call.
     if (!options.aiTitles || e.text.trim().split(/\s+/).length <= 4) {
       return next(e)
@@ -94,7 +135,14 @@ export const register: Register = (on, options) => {
       .then(r => {
         if (r.isAnswered) {
           const title = r.text.trim().split('\n')[0]?.replace(/^task:\s*/i, '').slice(0, TASK_MAX_CHARS)
-          return update($, card, c => ({ ...c, task: title || c.task }))
+          if (!title) {
+            return
+          }
+          // The history row takes the same title the card shows.
+          return Promise.all([
+            update($, card, c => ({ ...c, task: title })),
+            update($, ledger, l => ({ ...l, prompts: l.prompts.map(x => (x.id === promptId ? { ...x, title } : x)) })),
+          ])
         }
       })
       .catch(() => undefined)
@@ -131,6 +179,15 @@ export const register: Register = (on, options) => {
       const totalUsd = (await $.session.usage()).cost?.usd
       const lastCostUsd = totalUsd !== undefined && costAtStartUsd !== null ? totalUsd - costAtStartUsd : null
       costAtStartUsd = null
+      isRunning = false
+      const finishedId = currentPromptId
+      currentPromptId = null
+      if (finishedId !== null) {
+        await update($, ledger, l => ({
+          ...l,
+          prompts: l.prompts.map(x => (x.id === finishedId ? { ...x, costUsd: lastCostUsd } : x)),
+        }))
+      }
       await update($, card, c => ({
         ...c,
         lastCostUsd,
@@ -216,6 +273,14 @@ export const register: Register = (on, options) => {
               ? `Idle ${Math.round(idleMin ?? 0)}m: the cache has probably expired, so the next prompt re-bills the whole context at the write price.`
               : `Warm for about ${left.toFixed(1)} more minutes (TTL ${ttlMinutes}m).`}
         </Text>
+
+        <Text bold>Cost per prompt (last {MAX_PROMPTS})</Text>
+        {lg.prompts.length === 0 && <Text dimColor>No prompts yet.</Text>}
+        {[...lg.prompts].reverse().map(x => (
+          <Text key={`prompt-${x.id}`} wrap="truncate-end">
+            {`${(x.costUsd === null ? '…' : `$${x.costUsd.toFixed(2)}`).padStart(7)}  ${`${x.chars.toLocaleString('en-US')} ch`.padStart(9)}  ${x.title}`}
+          </Text>
+        ))}
 
         <Text bold>Tool results in context (estimated tokens)</Text>
         {rows.length === 0 && <Text dimColor>No tool calls yet.</Text>}

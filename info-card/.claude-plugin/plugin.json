@@ -1,6 +1,6 @@
 {
   "name": "info-card",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A live spend card above the prompt (cost, tokens, context, 5-hour limit, cache health, task) plus /ledger for spend by tool and prompt-cache detail.",
   "types": "./types/index.d.ts",
   "license": "MIT",
@@ -89,6 +89,18 @@
       "title": "Cache lifetime (minutes)",
       "description": "How long the prompt cache stays warm after a response. 5 by default; use 60 if your plan uses the 1-hour cache.",
       "default": 5
+    },
+    "cacheNudge": {
+      "type": "boolean",
+      "title": "Idle cache nudge",
+      "description": "In the background, show a short notice shortly before the prompt cache expires, so you can send a prompt to keep it warm. Off until you switch it on. Needs a restart or /reload-plugins to start or stop.",
+      "default": false
+    },
+    "nudgeLeadSeconds": {
+      "type": "number",
+      "title": "Nudge lead time (seconds)",
+      "description": "How long before the cache expires the notice appears.",
+      "default": 60
     }
   },
   "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/info-card",
