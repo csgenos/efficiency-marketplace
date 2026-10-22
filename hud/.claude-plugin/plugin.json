@@ -1,1 +1,19 @@
-{ "name": "hud", "version": "0.2.0", "description": "Session HUD above the prompt (band or card): context, cost, tokens, model, task. Settings pane via /hud; close it and bring it back with /hud.", "license": "MIT", "author": { "name": "csgenos" }, "types": "./types/index.d.ts" }
+{
+  "name": "hud",
+  "version": "0.2.0",
+  "description": "Session HUD above the prompt (band or card): context, cost, tokens, model, task. Settings pane via /hud; close it and bring it back with /hud.",
+  "license": "MIT",
+  "author": {
+    "name": "csgenos"
+  },
+  "types": "./types/index.d.ts",
+  "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/hud",
+  "repository": "https://github.com/csgenos/efficiency-marketplace",
+  "keywords": [
+    "statusline",
+    "cost",
+    "tokens",
+    "context",
+    "usage"
+  ]
+}

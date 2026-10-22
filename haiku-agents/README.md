@@ -9,3 +9,9 @@ Three read-only subagents that run on Haiku, so searching and checking cost litt
 Claude delegates to them on its own based on their descriptions, or name one in your prompt ("use scoper first").
 
 Optional: add `"env": { "CLAUDE_CODE_SUBAGENT_MODEL": "haiku" }` to your `settings.json` so any subagent without an explicit model also runs on Haiku.
+
+## Install
+
+```
+/plugin install haiku-agents --marketplace csgenos/efficiency-marketplace
+```

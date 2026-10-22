@@ -4,3 +4,9 @@ A green band above the prompt showing session tokens, the cost at API prices, co
 ## Customizing
 
 Open `hooks/register.tsx` and edit the **Easy settings** block at the top: change the color (green, blue, magenta, yellow, cyan, red, white, gray) and switch parts on or off. On a narrow terminal the end of the line is cut off, so the most important items come first. Restart Claude Code after editing.
+
+## Install
+
+```
+/plugin install session-hud --marketplace csgenos/efficiency-marketplace
+```

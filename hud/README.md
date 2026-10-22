@@ -12,3 +12,9 @@ A small display above the Claude Code prompt showing context window use, session
 - Optional: turn on "Name tasks with a small AI call" in settings to get short task titles; it uses a little extra usage per prompt, so it is off by default.
 
 MIT licensed.
+
+## Install
+
+```
+/plugin install hud --marketplace csgenos/efficiency-marketplace
+```

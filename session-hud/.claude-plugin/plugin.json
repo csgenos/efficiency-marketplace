@@ -1,1 +1,18 @@
-{ "name": "session-hud", "version": "0.1.0", "description": "Green band above the prompt: tokens, API-equivalent cost, context window, task, connection and model.", "license": "MIT", "author": { "name": "csgenos" }, "types": "./types/index.d.ts" }
+{
+  "name": "session-hud",
+  "version": "0.1.0",
+  "description": "Green band above the prompt: tokens, API-equivalent cost, context window, task, connection and model.",
+  "license": "MIT",
+  "author": {
+    "name": "csgenos"
+  },
+  "types": "./types/index.d.ts",
+  "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/session-hud",
+  "repository": "https://github.com/csgenos/efficiency-marketplace",
+  "keywords": [
+    "statusline",
+    "cost",
+    "tokens",
+    "context"
+  ]
+}

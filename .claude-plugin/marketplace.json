@@ -24,5 +24,6 @@
       "source": "./haiku-agents",
       "description": "Read-only Haiku subagents: Explore, scoper, junior"
     }
-  ]
+  ],
+  "description": "Claude Code plugins for tracking usage and spending less of it: status displays, and cheap Haiku subagents."
 }

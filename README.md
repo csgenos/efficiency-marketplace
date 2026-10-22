@@ -1,22 +1,63 @@
-# efficiency-marketplace
+<div align="center">
 
-Claude Code plugins for keeping an eye on usage and spending less of it.
+# ⚡ efficiency-marketplace
 
-| Plugin | What it does |
-|---|---|
-| `info-card` | Bordered card above the prompt: cost, tokens, context fill, 5-hour limit, current task. Settings in `/config`. |
-| `hud` | Band or card above the prompt with `/hud` settings pane. |
-| `session-hud` | Simple green band above the prompt. |
-| `haiku-agents` | Cheap read-only Haiku subagents: finder, scoper, junior. |
+**See what Claude Code costs you, and spend less of it.**
 
-## Install
+Status displays for cost, tokens and context, plus cheap read-only Haiku subagents.
+
+![plugins](https://img.shields.io/badge/plugins-4-blue) ![license](https://img.shields.io/badge/license-MIT-green) ![claude code](https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-orange)
+
+</div>
+
+## Quick start
 
 ```
 /plugin marketplace add csgenos/efficiency-marketplace
 /plugin install info-card@efficiency-marketplace
-/plugin install haiku-agents@efficiency-marketplace
 ```
 
-Costs shown are API-equivalent estimates, not what a subscription charges. `info-card` and `hud` can optionally name tasks with a small Haiku call per prompt (setting "AI task titles").
+Then run `/reload-plugins` (or restart Claude Code).
 
-MIT licensed.
+## Plugins
+
+| Plugin | What you get | Settings |
+|---|---|---|
+| 📊 **[info-card](info-card)** | Bordered card above the prompt: total and last-run cost, 5-hour limit, tokens, run time, context fill, current task | `/config` → info-card |
+| 🎛️ **[hud](hud)** | Band or card above the prompt, closable and reopenable | `/hud` |
+| 🟩 **[session-hud](session-hud)** | Minimal green band: tokens, cost, context, task, model | Edit `hooks/register.tsx` |
+| 🪶 **[haiku-agents](haiku-agents)** | Three read-only Haiku subagents: `finder`, `scoper`, `junior` | Edit the agent files |
+
+Install any of them the same way:
+
+```
+/plugin install <plugin>@efficiency-marketplace
+```
+
+> The three display plugins all draw above the prompt. Pick one.
+
+## Make subagents run on Haiku by default
+
+`haiku-agents` pins its own three agents to Haiku. To make **every** subagent without an explicit model default to Haiku too, add this to `~/.claude/settings.json`:
+
+```json
+{
+  "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "haiku" }
+}
+```
+
+A plugin cannot set environment variables for you, so this one is a manual step.
+
+## Good to know
+
+- Costs shown are **API-equivalent estimates**, not what a subscription charges.
+- `info-card` and `hud` can name each task with one small Haiku call per prompt ("AI task titles", on by default in `info-card`, off in `hud`). It uses a little extra usage; turn it off in settings if you prefer.
+- Subagents are picked by Claude from each agent's `description`, so delegation is likely, not guaranteed. You can always ask for one by name.
+
+## Contributing
+
+Issues and pull requests are welcome. Run `claude plugin validate .` before opening a PR.
+
+## License
+
+[MIT](LICENSE) © csgenos

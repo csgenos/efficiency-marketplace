@@ -3,5 +3,15 @@
   "version": "0.1.0",
   "description": "Read-only Haiku subagents: Explore (search), scoper (blast radius before edits), junior (bounded tasks with pass/fail checks).",
   "license": "MIT",
-  "author": { "name": "csgenos" }
+  "author": {
+    "name": "csgenos"
+  },
+  "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/haiku-agents",
+  "repository": "https://github.com/csgenos/efficiency-marketplace",
+  "keywords": [
+    "subagents",
+    "haiku",
+    "cost",
+    "efficiency"
+  ]
 }
