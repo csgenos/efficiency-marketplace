@@ -6,7 +6,7 @@
 
 Status displays for cost, tokens and context, plus cheap read-only Haiku subagents.
 
-![plugins](https://img.shields.io/badge/plugins-4-blue) ![license](https://img.shields.io/badge/license-MIT-green) ![claude code](https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-orange)
+![plugins](https://img.shields.io/badge/plugins-5-blue) ![license](https://img.shields.io/badge/license-MIT-green) ![claude code](https://img.shields.io/badge/Claude%20Code-plugin%20marketplace-orange)
 
 </div>
 
@@ -30,6 +30,7 @@ Then run `/reload-plugins` (or restart Claude Code).
 | 📊 **[info-card](info-card)** | Live card above the prompt: cost, 5-hour limit, tokens, context fill, cache health, current task. `/ledger` adds cost per prompt (with character counts), spend by tool and cache detail. Optional idle-cache nudge, off until you switch it on | `/config` → info-card |
 | 🥗 **[context-diet](context-diet)** | `/diet` ranks what fills your context before you type: MCP servers, skills, agents, memory files | `/config` → context-diet |
 | 🛡️ **[reread-guard](reread-guard)** | Refuses to re-read an unchanged file that is already in context | `/config` → reread-guard |
+| 🧠 **[lean-skills](lean-skills)** | Three skills that make Claude search lean, scope edits first and hand off long sessions: `lean-search`, `scope-first`, `handoff` | Edit the `SKILL.md` files |
 | 🪶 **[haiku-agents](haiku-agents)** | Three read-only Haiku subagents: `finder`, `scoper`, `junior` | Edit the agent files |
 
 Install any of them the same way:
@@ -55,6 +56,7 @@ A plugin cannot set environment variables for you, so this one is a manual step.
 
 - Costs shown are **API-equivalent estimates**, not what a subscription charges.
 - `info-card` can name each task with one small Haiku call per prompt ("AI task titles", on by default). It uses a little extra usage; turn it off in settings if you prefer.
+- `lean-skills` works best with `haiku-agents` and `reread-guard` installed: the skills tell Claude when to use them.
 - Subagents are picked by Claude from each agent's `description`, so delegation is likely, not guaranteed. You can always ask for one by name.
 
 ## Contributing

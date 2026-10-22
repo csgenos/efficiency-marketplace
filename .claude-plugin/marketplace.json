@@ -23,6 +23,11 @@
       "name": "reread-guard",
       "source": "./reread-guard",
       "description": "Refuses to re-read an unchanged file that is already in context, so the same text is not added and re-billed every turn."
+    },
+    {
+      "name": "lean-skills",
+      "source": "./lean-skills",
+      "description": "Three small skills (lean-search, scope-first, handoff) that make Claude search, scope edits and reset long sessions the cheap way."
     }
   ],
   "description": "Claude Code plugins for tracking usage and spending less of it: status displays, and cheap Haiku subagents."

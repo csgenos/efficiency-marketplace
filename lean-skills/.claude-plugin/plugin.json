@@ -1,0 +1,18 @@
+{
+  "name": "lean-skills",
+  "version": "0.1.0",
+  "description": "Three small skills (lean-search, scope-first, handoff) that make Claude search, scope edits and reset long sessions the cheap way.",
+  "license": "MIT",
+  "author": {
+    "name": "csgenos"
+  },
+  "homepage": "https://github.com/csgenos/efficiency-marketplace/tree/main/lean-skills",
+  "repository": "https://github.com/csgenos/efficiency-marketplace",
+  "keywords": [
+    "skills",
+    "tokens",
+    "context",
+    "efficiency",
+    "handoff"
+  ]
+}
